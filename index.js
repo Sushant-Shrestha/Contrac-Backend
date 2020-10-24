@@ -35,7 +35,8 @@ app.use(
 
 app.get("/", (req, resp) => {
     resp.json({message: "Backend for Contrac"});
-})
+});
+require("./routes/authRoutes")(app);
 
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
