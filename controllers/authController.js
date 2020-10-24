@@ -4,14 +4,14 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcrypt");
 
 exports.signUp = (req, resp) => {
-    console.log("@ signup");
+    console.log("@signup");
     const user = new User({ 
         fName: req.body.fName,
         lName: req.body.lName,
         healthCardNum: req.body.healthCardNum,
-        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(process.env.SALT))
+        password: bcrypt.hashSync(req.body.password, 16)
     });
-    console.dir(user);
+
     user.save((err, user) => {
         if(err){
             resp.status(500).send({ Error: err});
