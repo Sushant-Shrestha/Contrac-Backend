@@ -19,6 +19,23 @@ verifyToken = (req, resp, next) => {
     });
 };
 
-const authJWT = {verifyToken};
+isTracer = (req, resp, next) => {
+    User.findById(req.userId).exec((err, user) => {
+        if(err){
+            resp.status(500).send({ Error: err});
+            return;
+        }
+
+        if(user.role === "tracer"){
+            next();
+            return;
+        }
+
+        resp.status(403).send({ Error: "This page can only be viewed by Contrac Tracer team."});
+        return;
+    })
+}
+
+const authJWT = {verifyToken, isTracer};
 
 module.exports = authJWT;

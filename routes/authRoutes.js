@@ -12,7 +12,7 @@ module.exports = function(app) {
 
     app.post(
         "/api/auth/signup",
-        [verifySignUp.checkDuplicateHealthCardNum],
+        [verifySignUp.checkDuplicateHealthCardNum, verifySignUp.checkRole],
         controller.signUp
     );
 
